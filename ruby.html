@@ -61,7 +61,7 @@
                    return function (e) {
                        //Render thumbnail.
                        var span = document.createElement('span');
-                       span.innerHTML = ['<img class="thumb" src="',
+                       span.innerHTML = ['<img id="img_', i, '" class="thumb" src="',
                             e.target.result,
                             '" title="', escape(theFile.name),
                                '"/>'].join('');
@@ -77,6 +77,42 @@
         document.getElementById('files').addEventListener('change',
             handleFileSelect, false);
     </script>
+
+
+    <canvas style="border: 1px solid darkslategray" id="canvas" width="300" height="300"></canvas>
+    <button id="btn">add to canvas</button>
+    <script src="lib/fabric.min.js"></script>
+    <script>
+        var canvas = new fabric.Canvas('canvas');
+
+        var rect = new fabric.Rect({
+            top: 100,
+            left: 100,
+            width: 60,
+            height: 70,
+            fill: 'red'
+
+        });
+
+        canvas.add(rect);
+
+        function addImgHandler(e) {
+            var img = document.getElementById('img_1').getAttribute('src');
+//            var imgInstance = new fabric.Image(img, {
+//               left: 100,
+//                top: 100,
+//                opacity: 0.85,
+//                scale: 2
+//            });
+            fabric.Image.fromURL(img, function(oimg) {
+              canvas.add(oimg);
+            });
+//            canvas.add(imgInstance);
+        }
+
+        document.getElementById('btn').addEventListener('click', addImgHandler, false);
+    </script>
+
 </body>
 </html>
 
