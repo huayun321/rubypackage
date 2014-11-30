@@ -105,7 +105,19 @@
 //                scale: 2
 //            });
             fabric.Image.fromURL(img, function(oimg) {
-              canvas.add(oimg);
+                oimg.scale(0.5).set({
+                   left: 100,
+                    top: 100,
+                    angle:-15,
+                    opacity: 1,
+                    clipTo: function(ctx) {
+                        ctx.arc(0,0, 100, 0, Math.PI *2, true);
+                    }
+//                    clipTo: function(rect) {
+//                        rect;
+//                    }
+                });
+                canvas.add(oimg).setActiveObject(oimg);
             });
 //            canvas.add(imgInstance);
         }
